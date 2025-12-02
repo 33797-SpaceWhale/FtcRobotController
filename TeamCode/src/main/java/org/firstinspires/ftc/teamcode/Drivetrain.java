@@ -22,9 +22,9 @@ public class Drivetrain extends LinearOpMode {
     }
 
     public void move(double x, double y, double r) {
-        TR.setPower(x + y + r);
-        TL.setPower(x - y + r);
-        BR.setPower(-x + y + r);
-        BL.setPower(-x - y + r);
+        BL.setPower(x + y - r);
+        BR.setPower(x - y - r);
+        TL.setPower(-x + y - r);
+        TR.setPower(-x - y - r);
     }
 }
