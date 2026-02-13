@@ -23,7 +23,7 @@ public class pisyaBlueHigh extends LinearOpMode {
             move(0, -0.4, 0);
             sleep(500);
             move(0, 0, 0);
-            shooter.sh
+            //shooter.sh
             move(0.4, 0, 0);
             sleep(1000);
             move(0, 0, 0);
