@@ -8,22 +8,21 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 public class telepop extends LinearOpMode {
     DcMotor CM;
 
-    boolean isXpressed, isYpressed = false;
+//    boolean isXpressed, isYpressed = false;
 
-    //Shooter sh;
+    Shooter sh;
     Drivetrain dt;
 
     @Override
     public void runOpMode() {
         dt = new Drivetrain(this);
-        //sh = new Shooter(this);
+        sh = new Shooter(this);
 
         // CM = hardwareMap.dcMotor.get("cm");
         // CM.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         // CM.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
-
         double x, y, r = 0;
+
         waitForStart();
         while (opModeIsActive()) {
             x = gamepad1.left_stick_x;
@@ -34,6 +33,8 @@ public class telepop extends LinearOpMode {
             if (Math.abs(y) < 0.05) y = 0;
             if (Math.abs(r) < 0.05) r = 0;
             dt.move(x, y, r);
+            sh.shoot(gamepad1.right_stick_y);
+
             /*
             if (gamepad1.x && !isXpressed) { // shoot
                 sh.shoot(1);
@@ -43,11 +44,8 @@ public class telepop extends LinearOpMode {
             }
              */
 
-            // CM.setPower(    gamepad1.right_stick_y);
-
-            isXpressed = gamepad1.x;
-            isYpressed = gamepad1.y;
-
+//            isXpressed = gamepad1.x;
+//            isYpressed = gamepad1.y;
         }
     }
 }

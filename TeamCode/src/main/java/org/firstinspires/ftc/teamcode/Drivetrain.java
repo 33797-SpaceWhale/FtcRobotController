@@ -41,7 +41,7 @@ public class Drivetrain {
     public double centimetersToTicks(double centimeters) {
         return centimeters * TICKS_PER_CENTIMETER;
     }
-// System.out.println("hellow ofvfvyg");
+
     public void moveByDistance(double power_x, double power_y, double power_z, double distance) {
         stopAndReset();
         double ticks = centimetersToTicks(distance);
