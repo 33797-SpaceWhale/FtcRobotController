@@ -6,7 +6,10 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 public class Drivetrain {
     DcMotor TR, TL, BR, BL;
     LinearOpMode opmode;
-    private static final double TICKS_PER_CENTIMETER = (2 * Math.PI * 100) / 537.7 / 10;
+    private static final double WHEEL_PERIMETER_MM = 100 * Math.PI;
+    private static final double TICKS_PER_REVOLUTION = 537.7;
+    private static final double GEAR_RATIO = 1;
+    private static final double TICKS_PER_MM = (TICKS_PER_REVOLUTION / WHEEL_PERIMETER_MM) * GEAR_RATIO;
 
     public Drivetrain(LinearOpMode linearOpMode) {
         opmode = linearOpMode;
@@ -38,13 +41,13 @@ public class Drivetrain {
         TR.setPower(-x - y - r);
     }
 
-    public double centimetersToTicks(double centimeters) {
-        return centimeters * TICKS_PER_CENTIMETER;
+    public double millimetersToTicks(double millimeters) {
+        return millimeters * TICKS_PER_MM;
     }
 // System.out.println("hellow ofvfvyg");
-    public void moveByDistance(double power_x, double power_y, double power_z, double distance) {
+    public void moveByDistance(double power_x, double power_y, double power_z, double distanceMM) {
         stopAndReset();
-        double ticks = centimetersToTicks(distance);
+        double ticks = millimetersToTicks(distanceMM);
         while (Math.abs(BL.getCurrentPosition()) <= ticks && opmode.opModeIsActive()) {
             move(power_x, power_y, power_z);
         }
