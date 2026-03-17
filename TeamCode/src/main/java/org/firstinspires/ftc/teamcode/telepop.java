@@ -1,8 +1,12 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.hardware.rev.Rev2mDistanceSensor;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
+
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 @TeleOp
 public class telepop extends LinearOpMode {
@@ -12,16 +16,29 @@ public class telepop extends LinearOpMode {
 
     //Shooter sh;
     Drivetrain dt;
+    Shooter sh;
+    Sosi ss;
+    DistanceSensor sensorDistance;
 
     @Override
     public void runOpMode() {
         dt = new Drivetrain(this);
+        sh = new Shooter(this);
+        ss = new Sosi(this);
+
         //sh = new Shooter(this);
 
         // CM = hardwareMap.dcMotor.get("cm");
         // CM.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         // CM.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        sensorDistance = hardwareMap.get(DistanceSensor.class, "sensor_distance");
+        telemetry.addData("deviceName", sensorDistance.getDeviceName() );
+        telemetry.addData("range", String.format("%.01f mm", sensorDistance.getDistance(DistanceUnit.MM)));
+        telemetry.addData("range", String.format("%.01f cm", sensorDistance.getDistance(DistanceUnit.CM)));
+        telemetry.addData("range", String.format("%.01f m", sensorDistance.getDistance(DistanceUnit.METER)));
+        telemetry.addData("range", String.format("%.01f in", sensorDistance.getDistance(DistanceUnit.INCH)));
 
+        telemetry.update();
 
         double x, y, r = 0;
         waitForStart();
@@ -34,19 +51,17 @@ public class telepop extends LinearOpMode {
             if (Math.abs(y) < 0.05) y = 0;
             if (Math.abs(r) < 0.05) r = 0;
             dt.move(x, y, r);
-            /*
-            if (gamepad1.x && !isXpressed) { // shoot
-                sh.shoot(1);
-            }
-            if (gamepad1.y && !isYpressed) { // shoot
-                sh.shoot(-1);
-            }
-             */
+            if (gamepad1.a) sh.shoot(-1);
+            if (gamepad1.b) sh.shoot(0);
+            if (gamepad1.x) ss.sosat(-1);
+            if (gamepad1.y) ss.sosat(0);
+            telemetry.addData("deviceName", sensorDistance.getDeviceName() );
+            telemetry.addData("range", String.format("%.01f mm", sensorDistance.getDistance(DistanceUnit.MM)));
+            telemetry.addData("range", String.format("%.01f cm", sensorDistance.getDistance(DistanceUnit.CM)));
+            telemetry.addData("range", String.format("%.01f m", sensorDistance.getDistance(DistanceUnit.METER)));
+            telemetry.addData("range", String.format("%.01f in", sensorDistance.getDistance(DistanceUnit.INCH)));
 
-            // CM.setPower(    gamepad1.right_stick_y);
-
-            isXpressed = gamepad1.x;
-            isYpressed = gamepad1.y;
+            telemetry.update();
 
         }
     }
