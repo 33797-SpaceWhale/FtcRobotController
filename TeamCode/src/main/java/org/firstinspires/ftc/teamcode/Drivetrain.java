@@ -44,8 +44,8 @@ public class Drivetrain {
     public double millimetersToTicks(double millimeters) {
         return millimeters * TICKS_PER_MM;
     }
-// System.out.println("hellow ofvfvyg");
-    public void moveByDistance(double power_x, double power_y, double power_z, double distanceMM) {
+
+    public void moveByDistance(double power_x, double power_y, double power_z, double distance) {
         stopAndReset();
         double ticks = millimetersToTicks(distanceMM);
         while (Math.abs(BL.getCurrentPosition()) <= ticks && opmode.opModeIsActive()) {
