@@ -3,6 +3,9 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
+/**
+ * к
+ */
 public class Drivetrain {
     DcMotor TR, TL, BR, BL;
     LinearOpMode opmode;
@@ -11,6 +14,10 @@ public class Drivetrain {
     private static final double GEAR_RATIO = 1;
     private static final double TICKS_PER_MM = (TICKS_PER_REVOLUTION / WHEEL_PERIMETER_MM) * GEAR_RATIO;
 
+    /**
+     *
+     * @param linearOpMode
+     */
     public Drivetrain(LinearOpMode linearOpMode) {
         opmode = linearOpMode;
 
@@ -34,6 +41,13 @@ public class Drivetrain {
         BR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         BL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     }
+
+    /**
+     *
+     * @param x
+     * @param y
+     * @param r
+     */
     public void move(double x, double y, double r) {
         BL.setPower(x + y - r);
         BR.setPower(x - y - r);
