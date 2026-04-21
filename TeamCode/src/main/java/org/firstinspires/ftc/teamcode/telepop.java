@@ -15,8 +15,7 @@ public class telepop extends LinearOpMode {
 
     Drivetrain dt;
     Shooter sh;
-    Sosi ss;
-
+    Intake ss;
     DistanceSensor sensorDistance;
     Servo servo;
     CRServo crserv;
@@ -25,7 +24,7 @@ public class telepop extends LinearOpMode {
     public void runOpMode() {
         dt = new Drivetrain(this);
         sh = new Shooter(this);
-        ss = new Sosi(this);
+        ss = new Intake(this);
 
         sensorDistance = hardwareMap.get(DistanceSensor.class, "sensor_distance");
         servo = hardwareMap.get(Servo.class, "tolkatel");
@@ -49,8 +48,8 @@ public class telepop extends LinearOpMode {
 
             if (gamepad1.a) sh.shoot(-1);
             if (gamepad1.b) sh.shoot(0);
-            if (gamepad1.x) ss.sosat(-1);
-            if (gamepad1.y) ss.sosat(0);
+            if (gamepad1.x) ss.work(-1);
+            if (gamepad1.y) ss.work(0);
 
             if (gamepad1.dpad_down) servo.setPosition(0);
             if (gamepad1.dpad_up) servo.setPosition(1);
